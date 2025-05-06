@@ -1,0 +1,1 @@
+{"root":["./src/main.ts","./src/vite-env.d.ts","./src/lib/axios.ts","./src/lib/login.ts","./src/lib/logout.ts","./src/lib/tasks.ts","./src/router/index.ts","./src/stores/user.ts","./src/App.vue","./src/components/ApiTest.vue","./src/components/Dashboard.vue","./src/components/Header.vue","./src/components/HelloWorld.vue","./src/components/Login.vue"],"version":"5.7.3"}
