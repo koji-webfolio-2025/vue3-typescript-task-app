@@ -15,3 +15,6 @@ npm-debug.log*
 .DS_Store
 .vscode/
 .idea/
+
+src/**/*.js
+tsconfig.tsbuildinfo
