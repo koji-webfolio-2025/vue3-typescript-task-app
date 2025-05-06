@@ -1,0 +1,17 @@
+# ビルド生成物
+dist/
+dist-ssr/
+
+# ローカル開発環境の一時ファイル
+node_modules/
+.vite/
+.env
+
+# ログ類
+*.log
+npm-debug.log*
+
+# OS・エディタごとの不要ファイル
+.DS_Store
+.vscode/
+.idea/
