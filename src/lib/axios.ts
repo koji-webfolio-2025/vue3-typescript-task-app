@@ -1,16 +1,16 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, // セッション/クッキー対応（Sanctum前提ならtrue）
+const api = axios.create({
+  baseURL: '/api',
+  withCredentials: true,
   xsrfCookieName: 'XSRF-TOKEN',
   xsrfHeaderName: 'X-XSRF-TOKEN',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-})
+});
 
-export default apiClient
+export default api;
 
 axios.defaults.withCredentials = true;
