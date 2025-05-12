@@ -1,9 +1,71 @@
-<<<<<<< HEAD
-# vue3-typescript-task-app
-=======
-# Vue 3 + TypeScript + Vite
+# タスク管理SPA（Vue3 + Laravel API構成）
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 📌 概要
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
->>>>>>> 925a088 (initial commit for Vue app)
+このアプリは、Vue3（TypeScript）で構築されたフロントエンドと、Laravel API（Sanctum認証）によるバックエンドで構成されたシングルページアプリケーション（SPA）です。
+
+- 認証機能（ログイン／ログアウト）
+- タスクの一覧表示、作成、削除
+- セッション維持／CORS対応済
+- Vercel（Vue） × Render（Laravel）で無料デプロイ
+
+---
+
+## 🚀 アクセスURL（デモ）
+
+- フロントエンド（Vue）  
+  👉 https://your-vercel-url.vercel.app/app/
+
+- バックエンドAPI（Laravel）  
+  👉 https://your-render-url.onrender.com
+
+---
+
+## 🛠 技術スタック
+
+| 種類 | 技術 |
+|------|------|
+| フロントエンド | Vue3, TypeScript, Vite, Axios, Pinia |
+| バックエンド | Laravel 12, Sanctum, MySQL |
+| デプロイ | Vercel（フロント）, Render（API） |
+| DB | PlanetScale（MySQL互換） |
+
+---
+
+## 🔐 認証とセキュリティ
+
+- Laravel Sanctum によるセッションベース認証
+- CORS / SameSite=None + Secure Cookie 対応済み
+- クロスドメイン構成でもセッション維持OK（実績あり）
+
+---
+
+## 📁 ディレクトリ構成（概要）
+
+```bash
+laravel-api-full/
+├── public/
+│   └── app/        # Vueビルド済み成果物配置
+├── routes/api.php
+├── app/Http/Controllers/
+└── ...
+```
+
+##📄 使用方法（ローカル開発）
+Laravel APIの起動：
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
+
+Vue フロントの起動：
+
+```bash
+cd vue-app
+npm install
+npm run dev
+```
