@@ -1,15 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import axios from '@/lib/axios'
-import Home from '@/components/Home.vue'
 import Login from '@/components/Login.vue'
-import Tasks from '@/components/Tasks.vue'
+import Dashboard from '@/components/Dashboard.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: Dashboard,
     meta: { requiresAuth: true },
   },
   {
@@ -20,7 +19,7 @@ const routes = [
   {
     path: '/tasks',
     name: 'tasks',
-    component: Tasks,
+    component: Dashboard,
     meta: { requiresAuth: true },
   },
 ]
