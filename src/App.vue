@@ -7,7 +7,7 @@
 import Header from './components/Header.vue';
 import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/user';
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 const userStore = useUserStore();
 
@@ -18,6 +18,7 @@ onMounted(async () => {
     });
     if (res.data && res.data.user) {
       userStore.setUser({
+        id: res.data.user.id,
         name: res.data.user.name,
         email: res.data.user.email,
       });
