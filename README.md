@@ -14,10 +14,10 @@
 ## 🚀 アクセスURL（デモ）
 
 - フロントエンド（Vue）  
-  👉 https://your-vercel-url.vercel.app/app/
+  https://vue3-typescript-task-i0kqx9wd1-koji-dev-s-projects.vercel.app 
 
 - バックエンドAPI（Laravel）  
-  👉 https://your-render-url.onrender.com
+  https://api.codeshift-lab.com
 
 ---
 
