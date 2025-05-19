@@ -37,6 +37,11 @@ export const useUserStore = defineStore('user', {
       delete axios.defaults.headers.common['Authorization']
     },
 
+    setUser(user: User) {
+      this.user = user
+      this.isLoggedIn = true
+    },
+
     async fetchUser() {
       if (!this.token) return
       try {
