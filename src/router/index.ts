@@ -1,28 +1,53 @@
-// src/router/index.ts
-import { createRouter, createWebHashHistory } from 'vue-router';
-import Login from '../components/Login.vue';
-import Dashboard from '../components/Dashboard.vue';
-import { useUserStore } from '@/stores/user';
+import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import Home from '@/components/Home.vue'
+import Login from '@/components/Login.vue'
+import Tasks from '@/components/Tasks.vue'
 
 const routes = [
-  { path: '/', redirect: '/login' },
-  { path: '/login', component: Login },
-  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true }, },
-];
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/tasks',
+    name: 'tasks',
+    component: Tasks,
+    meta: { requiresAuth: true },
+  },
+]
 
 const router = createRouter({
-  history: createWebHashHistory('/app/'),
+  history: createWebHistory(),
   routes,
-});
+})
 
-router.beforeEach((to, _from, next) => {
-  const userStore = useUserStore();
+// グローバルナビゲーションガード
+router.beforeEach(async (to, from, next) => {
+  const store = useUserStore()
 
-  if (to.meta.requiresAuth && !userStore.isLoggedIn) {
-    next('/login');
-  } else {
-    next();
+  // persist後、Axiosにトークンが未設定ならセット
+  if (store.token && !axios.defaults.headers.common['Authorization']) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${store.token}`
   }
-});
 
-export default router;
+  // 認証が必要なページにアクセスしようとしている
+  if (to.meta.requiresAuth && !store.token) {
+    return next('/login')
+  }
+
+  if (to.path === '/login' && store.token) {
+    return next('/')
+  }
+
+  return next()
+})
+
+export default router

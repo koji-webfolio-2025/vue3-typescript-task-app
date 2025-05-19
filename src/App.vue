@@ -25,7 +25,7 @@ onMounted(async () => {
       userStore.clearUser();
     }
   } catch (e) {
-    userStore.clearUser(); // セッション切れなどで401の時
+    userStore.clearUser();
   }
 });
 </script>

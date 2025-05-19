@@ -1,21 +1,58 @@
 import { defineStore } from 'pinia';
+import axios from '@/lib/axios';
+
+interface User {
+  id: number
+  name: string
+  email: string
+}
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    name: '',
-    email: '',
+    token: '' as string,
+    user: null as User | null,
     isLoggedIn: false,
   }),
+
   actions: {
-    setUser(user: { name: string; email: string }) {
-    this.name = user.name;
-    this.email = user.email;
-    this.isLoggedIn = true;
+    async login(email: string, password: string) {
+      try {
+        const res = await axios.post('/login', { email, password })
+        this.token = res.data.token
+        this.user = res.data.user
+        this.isLoggedIn = true
+
+        // axiosにBearerトークンを設定
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+      } catch (e) {
+        this.clearUser()
+        throw e
+      }
     },
+
+    logout() {
+      this.token = ''
+      this.user = null
+      this.isLoggedIn = false
+      delete axios.defaults.headers.common['Authorization']
+    },
+
+    async fetchUser() {
+      if (!this.token) return
+      try {
+        const res = await axios.get('/me')
+        this.user = res.data
+        this.isLoggedIn = true
+      } catch (e) {
+        this.clearUser()
+      }
+    },
+
     clearUser() {
-    this.name = '';
-    this.email = '';
-    this.isLoggedIn = false;
+      this.token = ''
+      this.user = null
+      this.isLoggedIn = false
+      delete axios.defaults.headers.common['Authorization']
     },
   },
   persist: true,

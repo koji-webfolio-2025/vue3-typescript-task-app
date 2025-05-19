@@ -11,9 +11,9 @@
         <div v-if="loading" class="loading">読み込み中...</div>
         <ul v-else>
             <li v-for="task in tasks" :key="task.id">
-                <strong>{{ task.title }}</strong>: {{ task.description }}
+                <strong>{{ task.title }}</strong>
+                <span v-if="task.description">: {{ task.description }}</span>
                 <span v-if="task.is_done">✅</span>
-                <span v-else>⬜</span>
             </li>
         </ul>
         <h2>新規タスク作成</h2>

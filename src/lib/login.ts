@@ -1,12 +1,7 @@
 // src/lib/login.ts
-import axios from 'axios';
 import api from './axios';
 
-const csrf = () => {
-  return axios.get(`${import.meta.env.VITE_API_BASE_ORIGIN}/sanctum/csrf-cookie`, {
-    withCredentials: true,
-  });
-};
+const csrf = () => api.get('/sanctum/csrf-cookie');
 
 export async function login(email: string, password: string) {
   try {
@@ -18,7 +13,7 @@ export async function login(email: string, password: string) {
     });
 
     if (response.status === 200) {
-      return response.data; // ログイン成功時のユーザー情報など
+      return response.data;
     } else {
       throw new Error('ログインに失敗しました');
     }
