@@ -1,12 +1,8 @@
 // src/lib/login.ts
 import api from './axios';
 
-const csrf = () => api.get('/sanctum/csrf-cookie');
-
 export async function login(email: string, password: string) {
   try {
-    await csrf();
-
     const response = await api.post('/login', {
       email,
       password,

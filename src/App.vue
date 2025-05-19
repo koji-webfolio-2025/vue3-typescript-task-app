@@ -13,9 +13,7 @@ const userStore = useUserStore();
 
 onMounted(async () => {
   try {
-    const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user`, {
-      withCredentials: true,
-    });
+    const res = await axios.get(`/user`);
     if (res.data && res.data.user) {
       userStore.setUser({
         id: res.data.user.id,
