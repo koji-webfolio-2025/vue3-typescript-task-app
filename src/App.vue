@@ -13,7 +13,7 @@ const userStore = useUserStore();
 
 onMounted(async () => {
   try {
-    const res = await axios.get(`/user`);
+    const res = await axios.get(`/api/user`);
     if (res.data && res.data.user) {
       userStore.setUser({
         id: res.data.user.id,
