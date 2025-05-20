@@ -25,10 +25,7 @@ jobs:
 
       - name: Setup SSH key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 153.126.164.246 >> ~/.ssh/known_hosts
+          rsync -e "ssh -i ~/.ssh/id_rsa_github" -avz --delete dist/ ubuntu@153.126.164.246:/var/www/spa.codeshift-lab.com/html/
 
       - name: Deploy via rsync
         run: |
