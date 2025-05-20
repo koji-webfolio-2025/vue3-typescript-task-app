@@ -13,7 +13,7 @@ const userStore = useUserStore();
 
 onMounted(async () => {
   try {
-    const res = await api.get(`/user`);
+    const res = await api.get(`api/user`);
     if (res.data && res.data.user) {
       userStore.setUser({
         id: res.data.user.id,

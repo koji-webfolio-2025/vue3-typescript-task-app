@@ -45,7 +45,7 @@ export const useUserStore = defineStore('user', {
     async fetchUser() {
       if (!this.token) return
       try {
-        const res = await api.get('/user')
+        const res = await api.get('api/user')
         this.user = res.data
         this.isLoggedIn = true
       } catch (e) {
