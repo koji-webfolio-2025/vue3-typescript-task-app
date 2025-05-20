@@ -1,4 +1,4 @@
-// src/lib/login.ts
+// login.ts
 import api from './axios';
 
 export async function login(email: string, password: string) {
@@ -8,15 +8,15 @@ export async function login(email: string, password: string) {
       password,
     });
 
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      throw new Error('ログインに失敗しました');
+    // トークンを取得したら Authorization ヘッダーに自動で付与させる
+    const token = response.data.token;
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
+
+    return response.data;
   } catch (error: any) {
-    if (error.response && error.response.status === 429) {
-      throw new Error('ログイン試行が多すぎます。しばらく待ってください。');
-    }
+    console.error('Login error:', error);
     throw new Error(error.response?.data?.message || 'ログインに失敗しました');
   }
 }

@@ -1,0 +1,34 @@
+name: Deploy to Sakura VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy via rsync over SSH
+        uses: burnett01/rsync-deployments@v1.0.0
+        with:
+          switches: -avz --delete
+          path: dist/
+          remote_path: /var/www/spa.codeshift-lab.com/html/
+          remote_host: 153.126.164.246
+          remote_user: ubuntu
+          remote_key: ${{ secrets.SSH_KEY }}
