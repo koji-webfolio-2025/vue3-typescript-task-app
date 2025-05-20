@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from '@/lib/axios';
+import api from '@/lib/axios';
 
 interface User {
   id: number
@@ -17,13 +17,13 @@ export const useUserStore = defineStore('user', {
   actions: {
     async login(email: string, password: string) {
       try {
-        const res = await axios.post('/login', { email, password })
+        const res = await api.post('/login', { email, password })
         this.token = res.data.token
         this.user = res.data.user
         this.isLoggedIn = true
 
         // axiosにBearerトークンを設定
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+        api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
       } catch (e) {
         this.clearUser()
         throw e
@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
       this.token = ''
       this.user = null
       this.isLoggedIn = false
-      delete axios.defaults.headers.common['Authorization']
+      delete api.defaults.headers.common['Authorization']
     },
 
     setUser(user: User) {
@@ -45,7 +45,7 @@ export const useUserStore = defineStore('user', {
     async fetchUser() {
       if (!this.token) return
       try {
-        const res = await axios.get('/me')
+        const res = await api.get('/user')
         this.user = res.data
         this.isLoggedIn = true
       } catch (e) {
@@ -57,7 +57,7 @@ export const useUserStore = defineStore('user', {
       this.token = ''
       this.user = null
       this.isLoggedIn = false
-      delete axios.defaults.headers.common['Authorization']
+      delete api.defaults.headers.common['Authorization']
     },
   },
   persist: true,
